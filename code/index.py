@@ -64,7 +64,7 @@ def get_answer():
 
 if __name__ == '__main__':
     if configs['keys']:
-        app.run(host='0.0.0.0',port=1216)
+        app.run(host='0.0.0.0')
     else:
         print('请配置你的Keys')
 
