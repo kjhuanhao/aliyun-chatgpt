@@ -1,5 +1,5 @@
 # ------------------------------------
-#   If you need English case, you can refer to [s_en.yaml] file
+#   如果需要通过 Custom Container 方案进行部署，可以参考当前Yaml，部署案例：s deploy -t s.container.yaml
 # ------------------------------------
 #   欢迎您使用阿里云函数计算 FC 组件进行项目开发
 #   组件仓库地址：https://github.com/devsapp/fc
@@ -15,57 +15,59 @@
 #   有问题快来钉钉群问一下吧：33947367
 # ------------------------------------
 edition: 1.0.0
-name: aliyun-openai-flask
+name: web-framework-app
 # access 是当前应用所需要的密钥信息配置：
 # 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
 # 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
-access: "default"
+# access:  default
 
 vars: # 全局变量
-  region: "cn-shenzhen"
+  region: cn-beijing
   service:
-    name: "web-framework-16uy"
+    name: web-framework
     description: 'Serverless Devs Web Framework Service'
 
 services:
   framework: # 业务名称/模块名称
-    # 如果只想针对 framework 下面的业务进行相关操作，可以在命令行中加上 framework，例如：
-    # 只对framework进行构建：s framework build
-    # 如果不带有 framework ，而是直接执行 s build，工具则会对当前Yaml下，所有和 framework 平级的业务模块（如有其他平级的模块，例如下面注释的next-function），按照一定顺序进行 build 操作
-    component: fc # 组件名称，Serverless Devs 工具本身类似于一种游戏机，不具备具体的业务能力，组件类似于游戏卡，用户通过向游戏机中插入不同的游戏卡实现不同的功能，即通过使用不同的组件实现不同的具体业务能力
-    actions: # 自定义执行逻辑，关于actions 的使用，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#行为描述
+  # 如果只想针对 framework 下面的业务进行相关操作，可以在命令行中加上 framework，例如：
+  # 只对framework进行构建：s framework build
+  # 如果不带有 framework ，而是直接执行 s build，工具则会对当前Yaml下，所有和 framework 平级的业务模块（如有其他平级的模块，例如下面注释的next-function），按照一定顺序进行 build 操作
+    component:  fc
+    actions:       # 自定义执行逻辑，关于actions 的使用，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#行为描述
       pre-deploy: # 在deploy之前运行
-        - run: pip3 install -r requirements.txt -t . # 要执行的系统命令，类似于一种钩子的形式
-          path: ./code # 执行系统命令/钩子的路径
-    #        - component: fc build --use-docker               # 要运行的组件，格式为【component: 组件名 命令 参数】（可以通过s cli registry search --type Component 获取组件列表）
-    #        - plugin: myplugin                               # 与运行的插件 （可以通过s cli registry search --type Plugin 获取组件列表）
-    #          args:                                          # 插件的参数信息
-    #            testKey: testValue
-    #      post-deploy: # 在deploy之后运行
-    #        - component: fc versions publish # 要运行的命令行
+        - run: pip3 install -r requirements.txt -t .      # 要执行的系统命令，类似于一种钩子的形式
+          path: ./code                                    # 执行系统命令/钩子的路径
+        - component: fc build --use-docker --dockerfile ./code/Dockerfile               # 要运行的组件，格式为【component: 组件名 命令 参数】（可以通过s cli registry search --type Component 获取组件列表）
+#        - plugin: myplugin                               # 与运行的插件 （可以通过s cli registry search --type Plugin 获取组件列表）
+#          args:                                          # 插件的参数信息
+#            testKey: testValue
+#      post-deploy: # 在deploy之后运行
+#        - component: fc versions publish # 要运行的命令行
     props: # 组件的属性值
-      region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
+      region: ${vars.region}      # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
       service: ${vars.service}
       function:
-        name: "flask"
+        name: functionName
         description: 'Serverless Devs Web Framework Function'
         codeUri: './code'
-        runtime: python3.9
-        handler: index.app
+        runtime: custom-container
         timeout: 60
+        caPort: 9000
+        customContainerConfig:
+          image: 'registry.cn-beijing.aliyuncs.com/custom-container/web-framework:0.0.1'    # 需要替换为自己的镜像地址，或者自己目标的镜像地址，需要开通阿里云容器镜像服务等
+          command: '["./bootstrap"]'
       triggers:
         - name: httpTrigger
           type: http
           config:
             authType: anonymous
             methods:
-              - POST
+              - GET
       customDomains:
         - domainName: auto
           protocol: HTTP
           routeConfigs:
             - path: '/*'
-
 #  next-function: # 第二个函数的案例，仅供参考
 #    # 如果在当前项目下执行 s deploy，会同时部署模块：
 #    #   helloworld：服务hello-world-service，函数cpp-event-function

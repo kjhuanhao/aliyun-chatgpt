@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/aliyun-chatgpt.iml" filepath="$PROJECT_DIR$/.idea/aliyun-chatgpt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/aliyun-openai-flask.iml" filepath="$PROJECT_DIR$/.idea/aliyun-openai-flask.iml" />
     </modules>
   </component>
 </project>
