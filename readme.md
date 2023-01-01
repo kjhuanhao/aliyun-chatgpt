@@ -49,3 +49,7 @@ def __init__(self):
 
 云函数研究的不多，欢迎大家一起开源，优化这个基础项目
 
+## MIT开源协议
+
+请遵循[MIT开源协议](https://github.com/kjhuanhao/chatgpt-magic-plug/blob/main/LICENSE)
+
