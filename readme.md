@@ -15,7 +15,7 @@ aliyun-chatpt是基于最近较火的chatgpt开发的一个项目，本项目代
 
 
 ## 前期准备
-1. 使用该项目，请先开通阿里云`函数计算FC`
+1. 使用该项目，请先开通阿里云[函数计算FC](https://www.aliyun.com/product/fc)
 2. 将本项目fork，且提前修改好`openai.py`内的如下设置
 ```python
 def __init__(self):
@@ -50,4 +50,4 @@ def __init__(self):
 欢迎大家一起开源，优化这个基础项目
 
 ### 已知的问题
--[ ] 未做返回的代码优化
+- [ ] 未做返回的代码优化

@@ -5,7 +5,7 @@
 # @Project  : aliyun-openAI
 
 import requests
-
+import markdown
 
 class OpenAi:
     def __init__(self):
@@ -40,6 +40,7 @@ class OpenAi:
                 # Print the response
 
                 answer = response.json()['choices'][0]['text']
+                answer = markdown.markdown(answer)
             else:
                 answer= "问题不能为空"
         else:
