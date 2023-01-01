@@ -33,11 +33,11 @@ def __init__(self):
 
 
 ## 部署 & 体验
-文字部署教程：
+文字部署教程：https://www.laijiahao.cn/posts/bb8fab97/
 
 视频部署教程：待制作
 
-
+部署完成之后，可以修改然后导入该项目的油猴脚本以获得完成体验：https://github.com/kjhuanhao/chatgpt-magic-plug/blob/main/oil_monkyjs.js
 
 
 
@@ -47,7 +47,5 @@ def __init__(self):
   - 作者邮箱：`mrlaijiahao@126.com`
   - 作者的B站：`mrhuanhao`
 
-欢迎大家一起开源，优化这个基础项目
+云函数研究的不多，欢迎大家一起开源，优化这个基础项目
 
-### 已知的问题
-- [ ] 未做返回的代码优化
