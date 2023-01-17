@@ -13,9 +13,9 @@ class OpenAi:
         self.model = "text-davinci-003"
         self.url = "https://api.openai.com/v1/completions"
         # 替换为你的api_key <https://beta.openai.com/account/api-keys>
-        self.keys = "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"
+        self.keys = "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"
         # 这个是设置回答的长度,最大可以设置到4096 (免费额度为$18,该值影响你的用量)
-        self.max_tokens = 1024
+        self.max_tokens = 2000
         # 值越高意味着模型将承担更多风险。对于更具创造性的应用程序，请尝试 0.9,建议0.5-0.6
         self.temperature = 0.5
     def get_answer(self,prompt):
